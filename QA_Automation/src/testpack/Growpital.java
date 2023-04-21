@@ -3,6 +3,7 @@ package testpack;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -74,6 +75,33 @@ public class Growpital {
 		boolean verifySectionofPerosanalInfo = text.equalsIgnoreCase("Personal Information");
 		
 		System.out.println(text + " " + verifySectionofPerosanalInfo);
+		
+		//Below is the code to update PAN and to Close the same
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+		js.executeScript("window.scrollBy(0,200)");
+		
+		explicitWait(driver, 10, "(//div[@class='exclamation-icon-wrapper'])[1]");
+		
+		WebElement panbutton = driver.findElement(By.xpath("//input[@placeholder='Enter you PAN Card Number']"));
+		
+		panbutton.sendKeys("CACKPR0128R");
+		
+		driver.findElement(By.xpath("(//button[@class='custom-button '])[3]")).click();
+		
+		Thread.sleep(2000);
+		
+		//Since Getting error while submitting pan I've closed the pop-ups so that script can run further
+		
+		WebElement closepopup = driver.findElement(By.xpath("(//*[local-name()='svg'])[5]"));
+		
+		closepopup.click();
+		
+		
+		closepopup = driver.findElement(By.xpath("(//*[local-name()='svg'])[4]"));
+		
+		closepopup.click();
+		
 		
 		//below is the code to wait for 5 sec and then click on Upload Documents tab
 		
